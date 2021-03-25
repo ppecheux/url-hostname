@@ -22,6 +22,17 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+    - name: Cache PyPI
+      uses: actions/cache@v2
+      with:
+        key: pip-lint-${{ hashFiles('requirements/*.txt') }}
+        path: ~/.cache/pip
+        restore-keys: |
+            pip-lint-
+    - name: Install dependencies
+      uses: py-actions/py-dependency-install@v2
+      with:
+        path: requirements/lint.txt
     - name: Install itself
       run: |
         python setup.py install
