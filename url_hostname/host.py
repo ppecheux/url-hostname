@@ -107,7 +107,7 @@ class Host:
                 raise ValueError(
                     "one of the top second level domain is different"
                 )
-        common_subdomains = []
+
         i, max_i = 0, max(map(len,sds))
         while i<max_i and all(sd[i]==val.subdomains[i] for sd in sds):
             i+=1
