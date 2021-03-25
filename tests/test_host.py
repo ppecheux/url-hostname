@@ -19,9 +19,11 @@ def test_subdomains_str():
     )
     assert str(host) == "docs.aws.amazon.com"
 
+
 def test_domain_name():
     host = Host.build(second_level_domain="wikipedia", top_level_domain="org")
     assert host.domain_name == "wikipedia.org"
+
 
 def test_leaf():
     host = Host.build(second_level_domain="wikipedia", top_level_domain="org")
@@ -36,6 +38,7 @@ def test_subdomains_leaf():
     )
     assert host.leaf == "docs"
 
+
 def test_with_leaf():
     host = Host.build(
         subdomains="en",
@@ -45,6 +48,7 @@ def test_with_leaf():
     host = host.with_leaf("fr")
     assert str(host) == "fr.wikipedia.org"
 
+
 def test_with_subdomains():
     host = Host.build(
         subdomains="en",
@@ -52,6 +56,7 @@ def test_with_subdomains():
         top_level_domain="org",
     )
     assert str(host.with_subdomains("fr")) == "fr.wikipedia.org"
+
 
 def test_relative_to_1_host():
     host0 = Host.build(

@@ -12,15 +12,12 @@ all: test
 	@touch .develop
 
 pylint:
-	pylint $(SRC)
+	pylint --disable=C0114,C0115,C0116,W0212,W0122 $(SRC)
 
 black-check:
 	black --check --diff -t py35 $(SRC)
 
-mypy:
-	mypy --show-error-codes url_hostname tests
-
-lint: pylint black-check mypy
+lint: pylint black-check
 
 fmt:
 	black -t py35 $(SRC)

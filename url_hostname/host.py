@@ -2,24 +2,31 @@ from collections import namedtuple
 from typing import Iterable, Optional, Union
 
 _Domains = namedtuple(
-    'Domains', ['subdomains', 'second_level_domain', 'top_level_domain'])
+    "Domains", ["subdomains", "second_level_domain", "top_level_domain"]
+)
+
 
 def split_on_dots(domains: Union[Iterable[str], str]):
     if isinstance(domains, str):
-        return tuple(domains.split('.'))
+        return tuple(domains.split("."))
     splitted_domains = []
     for domain in domains:
-        splitted_domains.extend(filter(len, domain.split('.')))
+        splitted_domains.extend(filter(len, domain.split(".")))
     return tuple(splitted_domains)
+
 
 class Host:
 
     _val: _Domains
 
-    def __new__(cls, val: str = "", *,
-                second_level_domain: str = "",
-                top_level_domain: str = "",
-                subdomains: Optional[Union[Iterable[str], str]] = []):
+    def __new__(
+        cls,
+        val: str = "",
+        *,
+        second_level_domain: str = "",
+        top_level_domain: str = "",
+        subdomains: Optional[Union[Iterable[str], str]] = []
+    ):
         if val and isinstance(val, str):
             raise NotImplementedError
         self = object.__new__(cls)
@@ -28,8 +35,7 @@ class Host:
             return self
 
         subdomains = split_on_dots(subdomains)
-        domains = _Domains(tuple(subdomains),
-                           second_level_domain, top_level_domain)
+        domains = _Domains(tuple(subdomains), second_level_domain, top_level_domain)
         self._val = domains
         return self
 
@@ -44,18 +50,21 @@ class Host:
         return "{}('{}')".format(self.__class__.__name__, str(self))
 
     @classmethod
-    def build(cls,
-              second_level_domain: str,
-              top_level_domain: str,
-              subdomains: Optional[Iterable[str]] = tuple()
-              ):
-        return cls(subdomains=subdomains,
-                   second_level_domain=second_level_domain,
-                   top_level_domain=top_level_domain)
+    def build(
+        cls,
+        second_level_domain: str,
+        top_level_domain: str,
+        subdomains: Optional[Iterable[str]] = tuple(),
+    ):
+        return cls(
+            subdomains=subdomains,
+            second_level_domain=second_level_domain,
+            top_level_domain=top_level_domain,
+        )
 
     @property
     def domain_name(self):
-        return '.'.join(self._val[1:])
+        return ".".join(self._val[1:])
 
     @property
     def leaf(self) -> str:
@@ -78,33 +87,31 @@ class Host:
         return Host(val)
 
     def relative_to(self, *other):
-        top_levels, second_levels, subs = zip(*[
-            (o._val.top_level_domain,
-             o._val.second_level_domain,
-             o._val.subdomains)
-            for o in other
-        ])
+        top_levels, second_levels, subs = zip(
+            *[
+                (o._val.top_level_domain, o._val.second_level_domain, o._val.subdomains)
+                for o in other
+            ]
+        )
 
         val = self._val
         if not all(name == val.top_level_domain for name in top_levels):
             if len(top_levels) == 1:
                 raise ValueError(
                     "{} is not relative to {}".format(
-                        val.top_level_domain, top_levels[0])
+                        val.top_level_domain, top_levels[0]
+                    )
                 )
-            raise ValueError(
-                "one of the top level domain is different"
-            )
+            raise ValueError("one of the top level domain is different")
 
         if not all(name == val.second_level_domain for name in second_levels):
             if len(second_levels) == 1:
                 raise ValueError(
                     "{} is not relative to {}".format(
-                        val.top_level_domain, second_levels[0])
+                        val.top_level_domain, second_levels[0]
+                    )
                 )
-            raise ValueError(
-                "one of the top second level domain is different"
-            )
+            raise ValueError("one of the top second level domain is different")
 
         i, max_i = 0, max(map(len, subs))
         while i < max_i and all(sd[i] == val.subdomains[i] for sd in subs):
