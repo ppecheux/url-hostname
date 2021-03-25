@@ -11,8 +11,8 @@ all: test
 	@pip install -e .
 	@touch .develop
 
-flake8:
-	flake8 $(SRC)
+pylint:
+	pylint $(SRC)
 
 black-check:
 	black --check --diff -t py35 $(SRC)
@@ -20,7 +20,7 @@ black-check:
 mypy:
 	mypy --show-error-codes url_hostname tests
 
-lint: flake8 black-check mypy
+lint: pylint black-check mypy
 
 fmt:
 	black -t py35 $(SRC)
