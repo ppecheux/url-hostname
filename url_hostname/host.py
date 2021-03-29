@@ -16,6 +16,7 @@ def split_on_dots(domains: Union[Iterable[str], str]):
 
 
 class Host:
+    """Immutable representation of a host"""
 
     _val: _Domains
 
@@ -64,6 +65,11 @@ class Host:
 
     @property
     def domain_name(self):
+        """get the minimal part of the domain space that corresponds to an IP address
+
+        Returns:
+            str: 
+        """
         return ".".join(self._val[1:])
 
     @property
