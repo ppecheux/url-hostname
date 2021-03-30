@@ -16,7 +16,7 @@ def split_on_dots(domains: Union[Iterable[str], str]):
 
 
 class Host:
-    """Immutable representation of a host"""
+    """Immutable representation of a host in URL"""
 
     _val: _Domains
 
@@ -65,12 +65,20 @@ class Host:
 
     @property
     def domain_name(self):
-        """get the minimal part of the domain space that corresponds to an IP address
+        """get the minimal part of the domain space that corresponds to an IP address as a string
 
         Returns:
-            str: 
+            Host: second and top level domains
+
+        Examples:
+            >>> Host.build("utc", "fr", subdomains=("www", "prixroberval"))
+            >>> utc_fr = host.domain_name
+            >>> isinstance(utc_fr, Host)
+            True
+            >>> str(utc_fr)
+            "utc.fr"
         """
-        return ".".join(self._val[1:])
+        return Host.build(second_level_domain=self._val[1], top_level_domain=self._val[2])
 
     @property
     def leaf(self) -> str:

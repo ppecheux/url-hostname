@@ -12,7 +12,26 @@
 #
 import os
 import sys
+import pathlib
+import re
 
+_docs_path = pathlib.Path(__file__).parent
+_version_path = _docs_path / "../url-hostname/__version__.py"
+
+
+with _version_path.open() as fp:
+    try:
+        _version_info = re.search(
+            r"^__version__ = \""
+            r"(?P<major>\d+)"
+            r"\.(?P<minor>\d+)"
+            r"\.(?P<patch>\d+)"
+            r"(?P<tag>.*)?\"$",
+            fp.read(),
+            re.M,
+        ).groupdict()
+    except IndexError:
+        raise RuntimeError("Unable to determine version.")
 sys.path.insert(0, os.path.abspath(".."))
 
 
@@ -22,8 +41,10 @@ project = "url-hostname"
 copyright = "2021, Pierre-Louis Pécheux"
 author = "Pierre-Louis Pécheux"
 
-# The full version, including alpha/beta/rc tags
-release = "0.0.1"
+# The short X.Y version.
+version = '{major}.{minor}'.format(**_version_info)
+# The full version, including alpha/beta/rc tags.
+release = '{major}.{minor}.{patch}-{tag}'.format(**_version_info)
 
 
 # -- General configuration ---------------------------------------------------

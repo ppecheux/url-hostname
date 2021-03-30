@@ -1,4 +1,10 @@
 from url_hostname.host import Host
+from pytest import fixture
+
+
+@fixture
+def www_prixroberval_utc_fr():
+    return Host.build("utc", "fr", subdomains=("www", "prixroberval"))
 
 
 def test_str():
@@ -11,18 +17,14 @@ def test_repr():
     assert repr(host) == "Host('wikipedia.org')"
 
 
-def test_subdomains_str():
-    host = Host.build(
-        subdomains=("docs", "aws"),
-        second_level_domain="amazon",
-        top_level_domain="com",
-    )
-    assert str(host) == "docs.aws.amazon.com"
+def test_subdomains_str(www_prixroberval_utc_fr):
+    assert str(www_prixroberval_utc_fr) == "www.prixroberval.utc.fr"
 
 
-def test_domain_name():
-    host = Host.build(second_level_domain="wikipedia", top_level_domain="org")
-    assert host.domain_name == "wikipedia.org"
+def test_domain_name_prop(www_prixroberval_utc_fr):
+    utc_fr = www_prixroberval_utc_fr.domain_name
+    assert isinstance(utc_fr, Host)
+    assert str(utc_fr) == "utc.fr"
 
 
 def test_leaf():
@@ -30,13 +32,8 @@ def test_leaf():
     assert host.leaf == "wikipedia"
 
 
-def test_subdomains_leaf():
-    host = Host.build(
-        subdomains=("docs", "aws"),
-        second_level_domain="amazon",
-        top_level_domain="com",
-    )
-    assert host.leaf == "docs"
+def test_subdomains_leaf(www_prixroberval_utc_fr):
+    assert www_prixroberval_utc_fr.leaf == "www"
 
 
 def test_with_leaf():
