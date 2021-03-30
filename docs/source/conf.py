@@ -68,8 +68,6 @@ language = "y" #pylint: disable=invalid-name
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-html_static_path = []
-
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -78,6 +76,17 @@ html_static_path = []
 #
 html_theme = "alabaster" #pylint: disable=invalid-name
 
+html_theme_options = {
+    'logo': 'hotel.png',
+    #'description': '',
+    'github_user': 'ppecheux',
+    'github_repo': 'url-hostname',
+    'github_button': True,
+    'github_type': 'star',
+    'github_banner': True,
+    'codecov_button': True,
+    'sidebar_collapse': False,
+}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
