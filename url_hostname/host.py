@@ -78,7 +78,9 @@ class Host:
             >>> str(utc_fr)
             "utc.fr"
         """
-        return Host.build(second_level_domain=self._val[1], top_level_domain=self._val[2])
+        return Host.build(
+            second_level_domain=self._val[1], top_level_domain=self._val[2]
+        )
 
     @property
     def leaf(self) -> str:

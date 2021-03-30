@@ -10,13 +10,13 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
+import os #pylint: disable=no-absolute-import
 import sys
 import pathlib
 import re
 
-_docs_path = pathlib.Path(__file__).parent
-_version_path = _docs_path / "../url-hostname/__version__.py"
+_project_path = pathlib.Path(__file__).parent.parent.parent
+_version_path = _project_path / "url_hostname/__version__.py"
 
 
 with _version_path.open() as fp:
@@ -30,21 +30,21 @@ with _version_path.open() as fp:
             fp.read(),
             re.M,
         ).groupdict()
-    except IndexError:
-        raise RuntimeError("Unable to determine version.")
+    except IndexError as version_not_found:
+        raise RuntimeError("Unable to determine version.") from version_not_found
 sys.path.insert(0, os.path.abspath(".."))
 
 
 # -- Project information -----------------------------------------------------
 
-project = "url-hostname"
-copyright = "2021, Pierre-Louis Pécheux"
-author = "Pierre-Louis Pécheux"
+project = "url-hostname" #pylint: disable=invalid-name
+copyright = "2021, Pierre-Louis Pécheux" # pylint: disable=redefined-builtin, invalid-name, line-too-long
+author = "Pierre-Louis Pécheux" #pylint: disable=invalid-name
 
 # The short X.Y version.
-version = '{major}.{minor}'.format(**_version_info)
+version = '{major}.{minor}'.format(**_version_info) #pylint: disable=invalid-name
 # The full version, including alpha/beta/rc tags.
-release = '{major}.{minor}.{patch}-{tag}'.format(**_version_info)
+release = '{major}.{minor}.{patch}-{tag}'.format(**_version_info) #pylint: disable=invalid-name
 
 
 # -- General configuration ---------------------------------------------------
@@ -62,7 +62,7 @@ templates_path = ["_templates"]
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = "y"
+language = "y" #pylint: disable=invalid-name
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -75,7 +75,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "alabaster"
+html_theme = "alabaster" #pylint: disable=invalid-name
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

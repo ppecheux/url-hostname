@@ -1,5 +1,5 @@
-from url_hostname.host import Host
 from pytest import fixture
+from url_hostname.host import Host
 
 
 @fixture

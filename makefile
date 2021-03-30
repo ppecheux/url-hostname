@@ -12,7 +12,7 @@ all: test
 	@touch .develop
 
 pylint:
-	pylint --disable=C0114,C0115,C0116,W0212,W0122 $(SRC)
+	pylint --disable=C0114,C0115,C0116,W0212,W0122,W0621 $(SRC)
 
 black-check:
 	black --check --diff -t py35 $(SRC)
