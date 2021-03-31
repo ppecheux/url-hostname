@@ -65,18 +65,15 @@ class Host:
 
     @property
     def domain_name(self):
-        """get the minimal part of the domain space that corresponds to an IP address as a string
+        """Get the minimal part of the domain space that corresponds to an IP address as a string
 
         Returns:
             Host: second and top level domains
 
         Examples:
-            >>> Host.build("utc", "fr", subdomains=("www", "prixroberval"))
-            >>> utc_fr = host.domain_name
-            >>> isinstance(utc_fr, Host)
-            True
-            >>> str(utc_fr)
-            "utc.fr"
+            >>> host = Host.build("utc", "fr", subdomains=("www", "prixroberval"))
+            >>> host.domain_name
+            Host('utc.fr')
         """
         return Host.build(
             second_level_domain=self._val[1], top_level_domain=self._val[2]
@@ -84,10 +81,30 @@ class Host:
 
     @property
     def leaf(self) -> str:
+        """Left most part of the domain
+
+        Returns:
+            str: host domain's leaf
+
+        Examples:
+            >>> host = Host.build("utc", "fr", subdomains=("www", "prixroberval"))
+            >>> host.leaf
+            'www'
+        """
         val = self._val
         return val.subdomains[0] if val.subdomains else val.second_level_domain
 
     def with_leaf(self, leaf: str):
+        """New Host with the left most part of the domain replaced
+
+        Returns:
+            Host: new with `leaf` replaced
+
+        Examples:
+            >>> host = Host.build("wikipedia", "org", subdomains="en")
+            >>> host.with_leaf('fr')
+            Host('fr.wikipedia.org')
+        """
         assert isinstance(leaf, str)
         val = self._val
         if val.subdomains:
@@ -98,39 +115,81 @@ class Host:
         return Host(val)
 
     def with_subdomains(self, subdomains: Union[Iterable[str], str]):
+        """New Host with `subdomains` replaced
+
+        Args:
+            subdomains (Union[Iterable[str], str]): subdomains with leaf at left
+
+        Returns:
+            Host: new with `subdomains` replaced
+
+        Examples:
+            >>> host = Host.build("utc", "fr", subdomains=("www", "prixroberval"))
+            >>> host.with_leaf('prixroberval')
+            Host('prixroberval.utc.fr')
+        """
         subdomains = split_on_dots(subdomains)
         val = self._val._replace(subdomains=subdomains)
         return Host(val)
 
-    def relative_to(self, *other):
-        top_levels, second_levels, subs = zip(
+    def is_relative_to(self, *other):
+        """Wether or not this Host is relative to other
+
+        Returns:
+            bool: wether this Host is relative to other
+
+        Examples:
+            >>> docs = Host.build('amazon', 'com', ("docs",'aws'))
+            >>> macie = docs.with_subdomains(("us-west-2", "redirection", "macie", "aws"))
+            >>> macie.is_relative_to(docs)
+            True
+        """
+        top_levels, second_levels = zip(
             *[
-                (o._val.top_level_domain, o._val.second_level_domain, o._val.subdomains)
+                (
+                    o._val.top_level_domain,
+                    o._val.second_level_domain,
+                )
                 for o in other
             ]
         )
 
         val = self._val
-        if not all(name == val.top_level_domain for name in top_levels):
-            if len(top_levels) == 1:
-                raise ValueError(
-                    "{} is not relative to {}".format(
-                        val.top_level_domain, top_levels[0]
-                    )
-                )
-            raise ValueError("one of the top level domain is different")
+        if all(name == val.top_level_domain for name in top_levels) and all(
+            name == val.second_level_domain for name in second_levels
+        ):
+            return True
 
-        if not all(name == val.second_level_domain for name in second_levels):
-            if len(second_levels) == 1:
-                raise ValueError(
-                    "{} is not relative to {}".format(
-                        val.top_level_domain, second_levels[0]
-                    )
-                )
-            raise ValueError("one of the top second level domain is different")
+        return False
 
-        i, max_i = 0, max(map(len, subs))
-        while i < max_i and all(sd[i] == val.subdomains[i] for sd in subs):
-            i += 1
+    def relative_to(self, *other):
+        """Compute new a version of this Host relative to the path represented by other
 
-        return self.with_subdomains(val.subdomains[:i])
+        Returns:
+            Host: new with common domain names
+
+        Raises:
+            ValueError: when no relative host exists
+
+        Examples:
+            >>> docs = Host.build('amazon', 'com', ("docs",'aws'))
+            >>> macie = docs.with_subdomains(("us-west-2", "redirection", "macie", "aws"))
+            >>> macie.relative_to(docs)
+            Host('aws.amazon.com')
+        """
+
+        if not self.is_relative_to(*other):
+            raise ValueError("Provided domains are not relative")
+
+        val = self._val
+
+        common_levels = []
+        for levels in zip(
+            *(reversed(o._val.subdomains) for o in other), reversed(val.subdomains)
+        ):
+            unique_levels = set(levels)
+            if len(unique_levels) != 1:
+                break
+            common_levels.append(unique_levels.pop())
+
+        return self.with_subdomains(common_levels)
