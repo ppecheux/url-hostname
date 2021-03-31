@@ -10,7 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os #pylint: disable=no-absolute-import
+import os  # pylint: disable=no-absolute-import
 import sys
 import pathlib
 import re
@@ -37,14 +37,16 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "url-hostname" #pylint: disable=invalid-name
-copyright = "2021, Pierre-Louis Pécheux" # pylint: disable=redefined-builtin, invalid-name, line-too-long
-author = "Pierre-Louis Pécheux" #pylint: disable=invalid-name
+project = "url-hostname"  # pylint: disable=invalid-name
+copyright = "2021, Pierre-Louis Pécheux"  # pylint: disable=redefined-builtin, invalid-name, line-too-long
+author = "Pierre-Louis Pécheux"  # pylint: disable=invalid-name
 
 # The short X.Y version.
-version = '{major}.{minor}'.format(**_version_info) #pylint: disable=invalid-name
+version = "{major}.{minor}".format(**_version_info)  # pylint: disable=invalid-name
 # The full version, including alpha/beta/rc tags.
-release = '{major}.{minor}.{patch}-{tag}'.format(**_version_info) #pylint: disable=invalid-name
+release = "{major}.{minor}.{patch}-{tag}".format(
+    **_version_info
+)  # pylint: disable=invalid-name
 
 
 # -- General configuration ---------------------------------------------------
@@ -56,7 +58,8 @@ extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.napoleon"
 
 try:
     import sphinxcontrib.spelling  # noqa
-    extensions.append('sphinxcontrib.spelling')
+
+    extensions.append("sphinxcontrib.spelling")
 except ImportError:
     pass
 
@@ -68,7 +71,7 @@ templates_path = ["_templates"]
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = "y" #pylint: disable=invalid-name
+language = "y"  # pylint: disable=invalid-name
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -80,20 +83,21 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "alabaster" #pylint: disable=invalid-name
+html_theme = "alabaster"  # pylint: disable=invalid-name
 
 html_theme_options = {
-    'logo': 'hotel.png',
+    "logo": "hotel.png",
     #'description': '',
-    'github_user': 'ppecheux',
-    'github_repo': 'url-hostname',
-    'github_button': True,
-    'github_type': 'star',
-    'github_banner': True,
-    'codecov_button': True,
-    'sidebar_collapse': False,
+    "github_user": "ppecheux",
+    "github_repo": "url-hostname",
+    "github_button": True,
+    "github_type": "star",
+    "github_banner": True,
+    "codecov_button": True,
+    "sidebar_collapse": False,
 }
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
+# html_logo = "hotel.png"
