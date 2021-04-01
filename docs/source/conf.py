@@ -32,6 +32,20 @@ with _version_path.open() as fp:
         ).groupdict()
     except IndexError as version_not_found:
         raise RuntimeError("Unable to determine version.") from version_not_found
+
+
+with _version_path.open() as fp:
+    try:
+        _description_info = re.search(
+            r"^__description__ = \"(?P<description>[\w\s\-]+)",
+            fp.read(),
+            re.M,
+        ).groupdict()
+    except IndexError as description_not_found:
+        raise RuntimeError(
+            "Unable to determine description."
+        ) from description_not_found
+
 sys.path.insert(0, os.path.abspath(".."))
 
 
@@ -86,8 +100,8 @@ exclude_patterns = []
 html_theme = "alabaster"  # pylint: disable=invalid-name
 
 html_theme_options = {
-    "logo": "hotel.png",
-    #'description': '',
+    # "logo": "_static/hotel.png",
+    "description": "{description}".format(**_description_info),
     "github_user": "ppecheux",
     "github_repo": "url-hostname",
     "github_button": True,

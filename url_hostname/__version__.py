@@ -1,5 +1,5 @@
 __title__ = "url-hostname"
-__description__ = ""
+__description__ = "url-hostname provides a handy Host class for domain names management"
 __version__ = "0.2.0"
 __author__ = "Pierre-Louis Pécheux"
 __author_email__ = ""

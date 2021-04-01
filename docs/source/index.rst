@@ -1,5 +1,5 @@
-Welcome to url-hostname's documentation!
-========================================
+url-hostname
+============
 
 .. automodule:: url_hostname.host
     :members:

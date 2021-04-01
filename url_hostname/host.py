@@ -16,7 +16,22 @@ def split_on_dots(domains: Union[Iterable[str], str]):
 
 
 class Host:
-    """Immutable representation of a host in URL"""
+    """
+    Immutable representation of a host in URL
+    Modifying the host will return new instance of the class, thus allowing chaining
+
+    Example:
+
+        >>>  leaf          domain name
+        >>>  _|_              __|__
+        >>> /   \\            /     \\
+        >>>  www.prixroberval.utc.fr
+        >>> \_______________/\__/\_/
+        >>>        |          |    |
+        >>> subdomains   second  top 
+        >>>              domain  domain
+        >>>              level   level
+    """
 
     _val: _Domains
 

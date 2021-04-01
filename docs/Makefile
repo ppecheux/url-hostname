@@ -23,3 +23,4 @@ spelling:
 	$(SPHINXBUILD) -b spelling $(BUILDDIR)/spelling
 	@echo
 	@echo "Build finished."
+	

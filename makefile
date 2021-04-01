@@ -47,3 +47,8 @@ doctest: .develop
 
 doc-spelling:
 	make -C docs spelling SPHINXOPTS="-W -E"
+
+readmeMD:
+	sphinx-build -M markdown ./docs/source/ ./docs/source/_build 
+	rm README.md
+	mv ./docs/source/_build/markdown/index.md README.md
