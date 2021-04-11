@@ -6,6 +6,10 @@ url-hostname
     :target: https://url-hostname.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://codecov.io/gh/ppecheux/url-hostname/branch/main/graph/badge.svg
+.. 
+    :target: https://codecov.io/gh/ppecheux/url-hostname
+
 .. automodule:: url_hostname.host
     :members:
 

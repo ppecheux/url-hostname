@@ -7,6 +7,11 @@
 <!-- :target: https://url-hostname.readthedocs.io/en/latest/?badge=latest
 :alt: Documentation Status -->
 
+
+![image](https://codecov.io/gh/ppecheux/url-hostname/branch/main/graph/badge.svg)
+
+<!-- :target: https://codecov.io/gh/ppecheux/url-hostname -->
+
 ### class url_hostname.host.Host(val: str = '', \*, second_level_domain: str = '', top_level_domain: str = '', subdomains: Union[Iterable[str], str] = ())
 Immutable representation of a host in URL
 Modifying the host will return new instance of the class, thus allowing chaining
