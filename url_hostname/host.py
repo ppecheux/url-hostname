@@ -16,7 +16,7 @@ def split_on_dots(domains: Union[Iterable[str], str]):
 
 
 class Host:
-    """
+    """ 
     Immutable representation of a host in URL
     Modifying the host will return new instance of the class, thus allowing chaining
 
@@ -24,9 +24,9 @@ class Host:
 
         >>>  leaf          domain name
         >>>  _|_              __|__
-        >>> /   \\            /     \\
+        >>> ⸍   ⸌            ⸍      ⸌ 
         >>>  www.prixroberval.utc.fr
-        >>> \_______________/\__/\_/
+        >>> ⸌________________⸍⸌__⸍⸌_⸍
         >>>        |          |    |
         >>> subdomains   second  top 
         >>>              domain  domain
@@ -41,7 +41,7 @@ class Host:
         *,
         second_level_domain: str = "",
         top_level_domain: str = "",
-        subdomains: Optional[Union[Iterable[str], str]] = []
+        subdomains: Optional[Union[Iterable[str], str]] = ()
     ):
         if val and isinstance(val, str):
             raise NotImplementedError

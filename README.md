@@ -1,7 +1,7 @@
 # url-hostname
 
 
-### class url_hostname.host.Host(val: str = '', \*, second_level_domain: str = '', top_level_domain: str = '', subdomains: Optional[Union[Iterable[str], str]] = [])
+### class url_hostname.host.Host(val: str = '', \*, second_level_domain: str = '', top_level_domain: str = '', subdomains: Optional[Union[Iterable[str], str]] = ())
 Immutable representation of a host in URL
 Modifying the host will return new instance of the class, thus allowing chaining
 
@@ -10,9 +10,9 @@ Modifying the host will return new instance of the class, thus allowing chaining
 ```python
 >>>  leaf          domain name
 >>>  _|_              __|__
->>> /   \            /     \
+>>> ⸍   ⸌            ⸍      ⸌
 >>>  www.prixroberval.utc.fr
->>> \_______________/\__/\_/
+>>> ⸌________________⸍⸌__⸍⸌_⸍
 >>>        |          |    |
 >>> subdomains   second  top
 >>>              domain  domain
