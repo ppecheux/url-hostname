@@ -16,17 +16,16 @@ def split_on_dots(domains: Union[Iterable[str], str]):
 
 
 class Host:
-    """ 
-    Immutable representation of a host in URL
+    """Immutable representation of a host in URL
     Modifying the host will return new instance of the class, thus allowing chaining
 
     Example:
 
-        >>>  leaf          domain name
+        >>>  leaf 🍃       domain name
         >>>  _|_              __|__
         >>> ⸍   ⸌            ⸍      ⸌ 
         >>>  www.prixroberval.utc.fr
-        >>> ⸌________________⸍⸌__⸍⸌_⸍
+        >>> ⸌________________⸍⸌__⸍⸌__⸍
         >>>        |          |    |
         >>> subdomains   second  top 
         >>>              domain  domain
@@ -148,10 +147,10 @@ class Host:
         return Host(val)
 
     def is_relative_to(self, *other):
-        """Wether or not this Host is relative to other
+        """Whether or not this Host is relative to other
 
         Returns:
-            bool: wether this Host is relative to other
+            bool: whether this Host is relative to other
 
         Examples:
             >>> docs = Host.build('amazon', 'com', ("docs",'aws'))
