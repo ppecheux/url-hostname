@@ -1,5 +1,5 @@
 from collections import namedtuple
-from typing import Iterable, Optional, Union
+from typing import Iterable, Union
 
 _Domains = namedtuple(
     "Domains", ["subdomains", "second_level_domain", "top_level_domain"]
@@ -40,7 +40,7 @@ class Host:
         *,
         second_level_domain: str = "",
         top_level_domain: str = "",
-        subdomains: Optional[Union[Iterable[str], str]] = ()
+        subdomains: Union[Iterable[str], str] = ()
     ):
         if val and isinstance(val, str):
             raise NotImplementedError

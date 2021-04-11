@@ -1,7 +1,13 @@
 # url-hostname
 
 
-### class url_hostname.host.Host(val: str = '', \*, second_level_domain: str = '', top_level_domain: str = '', subdomains: Optional[Union[Iterable[str], str]] = ())
+
+![image](https://readthedocs.org/projects/url-hostname/badge/?version=latest)
+
+<!-- :target: https://url-hostname.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status -->
+
+### class url_hostname.host.Host(val: str = '', \*, second_level_domain: str = '', top_level_domain: str = '', subdomains: Union[Iterable[str], str] = ())
 Immutable representation of a host in URL
 Modifying the host will return new instance of the class, thus allowing chaining
 
@@ -213,6 +219,10 @@ New Host with subdomains replaced
 Host('prixroberval.utc.fr')
 ```
 
+<!-- toctree::.. image:: https://readthedocs.org/projects/ur/badge/?version=latest
+
+:maxdepth: 2
+:caption: Contents: -->
 # Indices and tables
 
 
