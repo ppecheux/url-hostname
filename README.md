@@ -8,15 +8,51 @@ Modifying the host will return new instance of the class, thus allowing chaining
 ### Example
 
 ```python
->>>  leaf          domain name
+>>>  leaf 🍃       domain name
 >>>  _|_              __|__
 >>> ⸍   ⸌            ⸍      ⸌
 >>>  www.prixroberval.utc.fr
->>> ⸌________________⸍⸌__⸍⸌_⸍
+>>> ⸌________________⸍⸌__⸍⸌__⸍
 >>>        |          |    |
 >>> subdomains   second  top
 >>>              domain  domain
 >>>              level   level
+```
+
+
+#### classmethod build(second_level_domain: str, top_level_domain: str, subdomains: Iterable[str] = ())
+Creates and returns a new Host:
+
+
+* **Parameters**
+
+    
+    * **second_level_domain** (*str*) -- single part
+
+
+    * **top_level_domain** (*str*) -- level in the hierarchical DNS after the root domain
+
+
+    * **subdomains** (*Iterable**[**str**]**, **optional*) -- parts on the left of the domain name
+
+
+
+* **Returns**
+
+    new Host instance
+
+
+
+* **Return type**
+
+    Host
+
+
+### Examples
+
+```python
+>>> Host.build("utc", "fr")
+Host('utc.fr')
 ```
 
 
@@ -45,12 +81,12 @@ Host('utc.fr')
 
 
 #### is_relative_to(\*other)
-Wether or not this Host is relative to other
+Whether or not this Host is relative to other
 
 
 * **Returns**
 
-    wether this Host is relative to other
+    whether this Host is relative to other
 
 
 

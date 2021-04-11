@@ -23,11 +23,11 @@ class Host:
 
         >>>  leaf 🍃       domain name
         >>>  _|_              __|__
-        >>> ⸍   ⸌            ⸍      ⸌ 
+        >>> ⸍   ⸌            ⸍      ⸌
         >>>  www.prixroberval.utc.fr
         >>> ⸌________________⸍⸌__⸍⸌__⸍
         >>>        |          |    |
-        >>> subdomains   second  top 
+        >>> subdomains   second  top
         >>>              domain  domain
         >>>              level   level
     """
@@ -69,8 +69,22 @@ class Host:
         cls,
         second_level_domain: str,
         top_level_domain: str,
-        subdomains: Optional[Iterable[str]] = tuple(),
+        subdomains: Iterable[str] = (),
     ):
+        """Creates and returns a new Host:
+
+        Args:
+            second_level_domain (str): single part
+            top_level_domain (str): level in the hierarchical DNS after the root domain
+            subdomains (Iterable[str], optional): parts on the left of the domain name
+
+        Returns:
+            Host: new Host instance
+
+        Examples:
+            >>> Host.build("utc", "fr")
+            Host('utc.fr')
+        """
         return cls(
             subdomains=subdomains,
             second_level_domain=second_level_domain,

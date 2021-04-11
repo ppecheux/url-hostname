@@ -58,9 +58,9 @@ author = "Pierre-Louis Pécheux"  # pylint: disable=invalid-name
 # The short X.Y version.
 version = "{major}.{minor}".format(**_version_info)  # pylint: disable=invalid-name
 # The full version, including alpha/beta/rc tags.
-release = "{major}.{minor}.{patch}-{tag}".format(
+release = "{major}.{minor}.{patch}-{tag}".format(  # pylint: disable=invalid-name
     **_version_info
-)  # pylint: disable=invalid-name
+)
 
 
 # -- General configuration ---------------------------------------------------
@@ -71,7 +71,7 @@ release = "{major}.{minor}.{patch}-{tag}".format(
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.napoleon"]
 
 try:
-    import sphinxcontrib.spelling  # noqa
+    import sphinxcontrib.spelling 
 
     extensions.append("sphinxcontrib.spelling")
 except ImportError:
