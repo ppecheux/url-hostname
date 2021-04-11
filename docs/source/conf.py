@@ -71,7 +71,7 @@ release = "{major}.{minor}.{patch}-{tag}".format(  # pylint: disable=invalid-nam
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.napoleon"]
 
 try:
-    import sphinxcontrib.spelling 
+    import sphinxcontrib.spelling
 
     extensions.append("sphinxcontrib.spelling")
 except ImportError:

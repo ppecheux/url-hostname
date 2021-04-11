@@ -77,6 +77,7 @@ def test_is_relative_to_1_host():
     host1 = host0.with_leaf("wikipedia")
     assert host0.is_relative_to(host1)
 
+
 def test_is_not_relative_to_1_host():
     host0 = Host.build(
         second_level_domain="wikipedia",
@@ -84,6 +85,7 @@ def test_is_not_relative_to_1_host():
     )
     host1 = host0.with_leaf("utc")
     assert not host0.is_relative_to(host1)
+
 
 def test_is_not_relative_to_n_host():
     host0 = Host.build(
@@ -93,6 +95,7 @@ def test_is_not_relative_to_n_host():
     hosts = [host0.with_leaf("utc") for _ in range(3)]
     assert not host0.is_relative_to(*hosts)
 
+
 def test_is_relative_to_n_host():
     host0 = Host.build(
         second_level_domain="wikipedia",
@@ -100,6 +103,7 @@ def test_is_relative_to_n_host():
     )
     hosts = [host0.with_leaf("wikipedia") for _ in range(3)]
     assert host0.is_relative_to(*hosts)
+
 
 def test_relative_to_1_host():
     host0 = Host.build(
@@ -116,7 +120,7 @@ def test_relative_to_sub_domains():
         second_level_domain="amazon",
         top_level_domain="com",
     )
-    host1 = host0.domain_name.with_subdomains(("docs",'aws'))
+    host1 = host0.domain_name.with_subdomains(("docs", "aws"))
     assert str(host0) == "us-west-2.redirection.macie.aws.amazon.com"
     assert str(host1) == "docs.aws.amazon.com"
     host_rel = host0.relative_to(host1)
@@ -124,7 +128,7 @@ def test_relative_to_sub_domains():
 
 
 def test_relative_to_sub_domains_big():
-    docs = Host.build('amazon', 'com', ("docs",'aws'))
+    docs = Host.build("amazon", "com", ("docs", "aws"))
     macie = docs.with_subdomains(("us-west-2", "redirection", "macie", "aws"))
 
     assert str(macie) == "us-west-2.redirection.macie.aws.amazon.com"
